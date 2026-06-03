@@ -1,0 +1,3 @@
+.agents/heartbeat.json
+*.env
+.env*

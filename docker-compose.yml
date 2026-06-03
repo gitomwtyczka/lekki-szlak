@@ -1,0 +1,7 @@
+services:
+  lekki-szlak:
+    build: .
+    container_name: lekki-szlak-web
+    ports:
+      - "8084:80"
+    restart: unless-stopped

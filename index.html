@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lekki Szlak — Bieszczady &amp; Beskid Niski na lekko | Sieć schronisk</title>
+<meta name="description" content="Wędruj bez ciężkiego plecaka. Sieć 5 schronisk na pograniczu Bieszczadów i Beskidu Niskiego z transportem bagażu i gwarantowanym wyżywieniem.">
+<meta name="keywords" content="bieszczady bez plecaka, trekking beskid niski, turystyka wędrowna, transport bagażu, slow travel">
+<meta property="og:title" content="Lekki Szlak — Bieszczady &amp; Beskid Niski na lekko">
+<meta property="og:description" content="Wędruj bez ciężkiego plecaka. Sieć 5 schronisk z transportem bagażu i gwarantowanym wyżywieniem.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://lekki-szlak.impresjapr.pl">
+<meta property="og:image" content="https://lekki-szlak.impresjapr.pl/img/hero.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Lekki Szlak — Bieszczady &amp; Beskid Niski na lekko">
+<meta name="twitter:description" content="Wędruj bez ciężkiego plecaka. Sieć 5 schronisk z transportem bagażu.">
+<meta name="twitter:image" content="https://lekki-szlak.impresjapr.pl/img/hero.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="css/style.css">
+<script type="application/ld+json">
+[{"@context":"https://schema.org","@type":"Organization","name":"Lekki Szlak","url":"https://lekki-szlak.impresjapr.pl","description":"Sieć obiektów noclegowych na pograniczu Beskidu Niskiego i Bieszczadów — turystyka wędrowna bez ciężkiego plecaka.","areaServed":{"@type":"Place","name":"Bieszczady i Beskid Niski, Polska"}},
+{"@context":"https://schema.org","@type":"TouristTrip","name":"Odcinek Łupkowski","description":"Łupków → Smolnik → Szczerbanówka. Łagodne podejścia, bukowe lasy.","touristType":"Hiking"},
+{"@context":"https://schema.org","@type":"TouristTrip","name":"Pętla Komańczańska","description":"K85 → Schronisko Komańcza → Szczerbanówka. Widoki na Chryszczatą.","touristType":"Hiking"},
+{"@context":"https://schema.org","@type":"TouristTrip","name":"Szlak Bieszczadzki","description":"Pełna trasa przez 5 obiektów sieci Lekki Szlak.","touristType":"Hiking"},
+{"@context":"https://schema.org","@type":"LodgingBusiness","name":"Schronisko w Łupkowie","description":"Chata na końcu świata — klimatyczne schronisko u podnóża Beskidu Niskiego.","address":{"@type":"PostalAddress","addressLocality":"Łupków","addressCountry":"PL"}},
+{"@context":"https://schema.org","@type":"LodgingBusiness","name":"Szczerbanówka na Maniowie","address":{"@type":"PostalAddress","addressLocality":"Maniów","addressCountry":"PL"}},
+{"@context":"https://schema.org","@type":"LodgingBusiness","name":"K85 Komańcza","address":{"@type":"PostalAddress","addressLocality":"Komańcza","addressCountry":"PL"}},
+{"@context":"https://schema.org","@type":"LodgingBusiness","name":"Schronisko Smolnik","address":{"@type":"PostalAddress","addressLocality":"Smolnik","addressCountry":"PL"}},
+{"@context":"https://schema.org","@type":"LodgingBusiness","name":"Schronisko w Komańczy","address":{"@type":"PostalAddress","addressLocality":"Komańcza","addressCountry":"PL"}},
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Czym jest Lekki Szlak?","acceptedAnswer":{"@type":"Answer","text":"Lekki Szlak to sieć 5 obiektów noclegowych na pograniczu Bieszczadów i Beskidu Niskiego. Oferujemy transport bagażu między obiektami, pełne wyżywienie i gwarancję ciszy."}},{"@type":"Question","name":"Czy muszę nosić ciężki plecak?","acceptedAnswer":{"@type":"Answer","text":"Nie! Transport bagażu między obiektami jest wliczony. Idziesz tylko z lekkim plecakiem dziennym."}},{"@type":"Question","name":"Jakie wyżywienie jest zapewnione?","acceptedAnswer":{"@type":"Answer","text":"Śniadanie w obiekcie startowym, lunch-box na szlak i ciepła kolacja na mecie."}}]}]
+</script>
+</head>
+<body>
+
+<!-- ═══ NAVBAR ═══ -->
+<nav class="navbar" id="navbar">
+<div class="container">
+<a href="#" class="logo">
+<svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 4L4 28h28L18 4z" stroke="#d4a843" stroke-width="2" fill="none"/><circle cx="10" cy="24" r="2" fill="#2d6a4f"/><circle cx="18" cy="12" r="2" fill="#d4a843"/><circle cx="26" cy="24" r="2" fill="#2d6a4f"/><line x1="10" y1="24" x2="18" y2="12" stroke="#d4a843" stroke-width="1.5" stroke-dasharray="3 2"/><line x1="18" y1="12" x2="26" y2="24" stroke="#d4a843" stroke-width="1.5" stroke-dasharray="3 2"/><line x1="10" y1="24" x2="26" y2="24" stroke="#2d6a4f" stroke-width="1.5" stroke-dasharray="3 2"/></svg>
+LEKKI SZLAK
+</a>
+<div class="nav-links" id="nav-links">
+<a href="#usp">Idea</a><a href="#mapa">Mapa</a><a href="#obiekty">Obiekty</a><a href="#trasy">Trasy</a><a href="#galeria">Galeria</a><a href="#kontakt">Kontakt</a>
+</div>
+<button class="nav-toggle" id="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+</div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero" id="hero">
+<div class="hero-bg"><img src="img/hero.png" alt="Panorama Bieszczadów" loading="eager"></div>
+<div class="hero-overlay"></div>
+<div class="hero-content">
+<div class="hero-badge">🏔️ Bieszczady &amp; Beskid Niski</div>
+<h1>Przejdź region na&nbsp;lekko</h1>
+<p>Sieć 5&nbsp;schronisk z&nbsp;transportem bagażu, pełnym wyżywieniem i&nbsp;gwarancją ciszy. Zostawiasz ciężki plecak — zabierasz wspomnienia.</p>
+<div class="hero-cta">
+<a href="#kontakt" class="btn btn-primary">Zaplanuj wędrówkę</a>
+<a href="#trasy" class="btn btn-outline">Zobacz trasy</a>
+</div>
+</div>
+<div class="scroll-indicator"><span>PRZEWIŃ</span><div class="arrow"></div></div>
+</section>
+
+<!-- ═══ USP ═══ -->
+<section class="usp section-padding" id="usp">
+<div class="container">
+<h2 class="section-title reveal">Trzy filary Lekkiego Szlaku</h2>
+<p class="section-subtitle reveal">W Lekkim Szlaku ciężkie są tylko wspomnienia — plecak zostaw nam.</p>
+<div class="usp-grid">
+<div class="usp-card reveal">
+<div class="usp-icon"><svg viewBox="0 0 24 24"><path d="M4 20V10l8-6 8 6v10a1 1 0 01-1 1H5a1 1 0 01-1-1z"/><path d="M12 4v4M8 20v-6h8v6"/></svg></div>
+<h3>🎒 Zero Balastu</h3>
+<p>Transport bagażu między obiektami jest wliczony. Idziesz z&nbsp;lekkim plecakiem dziennym — resztę dostarczymy na&nbsp;miejsce.</p>
+</div>
+<div class="usp-card reveal">
+<div class="usp-icon"><svg viewBox="0 0 24 24"><path d="M3 11h2a2 2 0 012 2v1a2 2 0 01-2 2H3V11zM21 11h-2a2 2 0 00-2 2v1a2 2 0 002 2h2V11z"/><path d="M12 2a5 5 0 015 5v4a5 5 0 01-10 0V7a5 5 0 015-5z"/><path d="M8 21h8M12 17v4"/></svg></div>
+<h3>🍽️ Dobre Karmienie</h3>
+<p>Śniadanie w&nbsp;obiekcie startowym, lunch-box na szlak i&nbsp;ciepła kolacja na&nbsp;mecie. Zero stresu z&nbsp;jedzeniem.</p>
+</div>
+<div class="usp-card reveal">
+<div class="usp-icon"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/><line x1="1" y1="1" x2="23" y2="23" stroke-width="2"/></svg></div>
+<h3>🤫 Gwarancja Ciszy</h3>
+<p>Brak off-roadu, głośnych imprez, nocnych hałasów. Święty spokój — dla tych, którzy szukają prawdziwego odpoczynku.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ═══ MAPA ═══ -->
+<section class="map-section section-padding" id="mapa">
+<div class="container">
+<h2 class="section-title reveal">Mapa sieci</h2>
+<p class="section-subtitle reveal">Łączymy kropki na mapie Twojej wolności. 5&nbsp;obiektów, 2&nbsp;regiony, 0&nbsp;ciężkich plecaków.</p>
+<div id="map" class="reveal"></div>
+</div>
+</section>
+
+<!-- ═══ OBIEKTY ═══ -->
+<section class="shelters section-padding" id="obiekty">
+<div class="container">
+<h2 class="section-title reveal">Obiekty partnerskie</h2>
+<p class="section-subtitle reveal">Każdy obiekt to inny świat — ale wszędzie czeka na Ciebie ciepłe łóżko, domowe jedzenie i&nbsp;cisza.</p>
+<div class="shelters-grid">
+<div class="shelter-card reveal">
+<div class="shelter-card-img"><img src="img/lupkow.png" alt="Schronisko w Łupkowie" loading="lazy"><span class="badge">Beskid Niski</span></div>
+<div class="shelter-card-body"><h3>Schronisko w Łupkowie</h3><p>„Chata na końcu świata" — klimatyczne miejsce u podnóża Beskidu Niskiego, tuż przy granicy ze Słowacją.</p><div class="shelter-meta"><span>📍 Łupków</span><span>🥾 12 km do Smolnika</span></div></div>
+</div>
+<div class="shelter-card reveal">
+<div class="shelter-card-img"><img src="img/szczerbanowka.png" alt="Szczerbanówka na Maniowie" loading="lazy"><span class="badge">Beskid Niski</span></div>
+<div class="shelter-card-body"><h3>Szczerbanówka na Maniowie</h3><p>Pensjonat z duszą — panoramiczne widoki, domowa kuchnia i punkt centralny sieci Lekkiego Szlaku.</p><div class="shelter-meta"><span>📍 Maniów</span><span>🥾 8 km do K85</span></div></div>
+</div>
+<div class="shelter-card reveal">
+<div class="shelter-card-img"><img src="img/k85.png" alt="K85 Komańcza" loading="lazy"><span class="badge">Beskid Niski</span></div>
+<div class="shelter-card-body"><h3>K85 w Komańczy</h3><p>Designerska chata z historią — nowoczesny komfort w otoczeniu dzikiej przyrody Komańczy.</p><div class="shelter-meta"><span>📍 Komańcza</span><span>🥾 3 km do Schroniska Komańcza</span></div></div>
+</div>
+<div class="shelter-card reveal">
+<div class="shelter-card-img"><img src="img/smolnik.png" alt="Schronisko Smolnik" loading="lazy"><span class="badge">Bieszczady</span></div>
+<div class="shelter-card-body"><h3>Schronisko Smolnik</h3><p>Brama do bieszczadzkich połonin — idealna baza wypadowa na Tarnicę i Halicz.</p><div class="shelter-meta"><span>📍 Smolnik</span><span>🥾 14 km do Szczerbanówki</span></div></div>
+</div>
+<div class="shelter-card reveal">
+<div class="shelter-card-img"><img src="img/komancza.png" alt="Schronisko w Komańczy" loading="lazy"><span class="badge">Beskid Niski</span></div>
+<div class="shelter-card-body"><h3>Schronisko w Komańczy</h3><p>Przytulne schronisko w sercu Komańczy — spokojna atmosfera i bliskość Klasztoru Sióstr Nazaretanek.</p><div class="shelter-meta"><span>📍 Komańcza</span><span>🥾 3 km do K85</span></div></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ═══ TRASY ═══ -->
+<section class="trails section-padding" id="trasy">
+<div class="container">
+<h2 class="section-title reveal">Gotowe trasy</h2>
+<p class="section-subtitle reveal">Wybierz swoją przygodę — każda trasa jest zaprojektowana tak, byś szedł na lekko.</p>
+<div class="trails-grid">
+<div class="trail-card reveal">
+<div class="trail-card-header"><h3>Odcinek Łupkowski</h3><span class="trail-difficulty easy">Łatwy</span></div>
+<p>Łupków → Smolnik → Szczerbanówka. Łagodne podejścia przez bukowe lasy, z widokami na dolinę Osławy. Idealna trasa na&nbsp;początek.</p>
+<div class="trail-stats">
+<div class="trail-stat"><svg viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg><strong>26 km</strong></div>
+<div class="trail-stat"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><strong>2 dni</strong></div>
+<div class="trail-stat"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg><strong>↑480 m</strong></div>
+</div>
+</div>
+<div class="trail-card reveal">
+<div class="trail-card-header"><h3>Pętla Komańczańska</h3><span class="trail-difficulty medium">Średni</span></div>
+<p>K85 → Schronisko Komańcza → Szczerbanówka → K85. Okrężna trasa z widokami na Chryszczatą i dolinę Wisłoka.</p>
+<div class="trail-stats">
+<div class="trail-stat"><svg viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg><strong>19 km</strong></div>
+<div class="trail-stat"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><strong>1–2 dni</strong></div>
+<div class="trail-stat"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg><strong>↑620 m</strong></div>
+</div>
+</div>
+<div class="trail-card reveal">
+<div class="trail-card-header"><h3>Szlak Bieszczadzki</h3><span class="trail-difficulty medium">Średni</span></div>
+<p>Pełna trasa przez wszystkie 5 obiektów sieci. Łupków → Smolnik → Szczerbanówka → K85 → Komańcza. Epicki przejazd na lekko.</p>
+<div class="trail-stats">
+<div class="trail-stat"><svg viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg><strong>45 km</strong></div>
+<div class="trail-stat"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><strong>4 dni</strong></div>
+<div class="trail-stat"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg><strong>↑1250 m</strong></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ═══ GALERIA ═══ -->
+<section class="gallery section-padding" id="galeria">
+<div class="container">
+<h2 class="section-title reveal">Galeria</h2>
+<p class="section-subtitle reveal">Chwile, które czekają na szlaku.</p>
+<div class="gallery-grid">
+<div class="gallery-item reveal"><img src="img/hero.png" alt="Panorama Bieszczadów" loading="lazy"></div>
+<div class="gallery-item reveal"><img src="img/gallery1.png" alt="Zachód słońca w górach" loading="lazy"></div>
+<div class="gallery-item reveal"><img src="img/gallery2.png" alt="Las bukowy na szlaku" loading="lazy"></div>
+<div class="gallery-item reveal"><img src="img/lupkow.png" alt="Schronisko w Łupkowie" loading="lazy"></div>
+<div class="gallery-item reveal"><img src="img/trail1.png" alt="Szlak przez połoniny" loading="lazy"></div>
+<div class="gallery-item reveal"><img src="img/gallery3.png" alt="Łąka górska" loading="lazy"></div>
+</div>
+</div>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox"><button class="lightbox-close" aria-label="Zamknij">&times;</button><img id="lightbox-img" src="" alt=""></div>
+
+<!-- ═══ PASZPORT WĘDROWCA ═══ -->
+<section class="passport section-padding" id="paszport">
+<div class="container">
+<div class="passport-inner">
+<div class="passport-text reveal-left">
+<h2>📱 Paszport Wędrowca</h2>
+<p>Wkrótce uruchomimy cyfrowy system pieczęci. Odwiedzaj obiekty, zbieraj pieczątki, odbieraj nagrody. Bądź na bieżąco.</p>
+<a href="#kontakt" class="btn btn-primary">Zapisz się na newsletter</a>
+</div>
+<div class="passport-visual reveal-right">
+<div class="stamp-grid">
+<div class="stamp collected">🏔️</div><div class="stamp collected">🌲</div><div class="stamp">🦌</div>
+<div class="stamp collected">🏡</div><div class="stamp">⛺</div><div class="stamp">🌄</div>
+<div class="stamp">🥾</div><div class="stamp">🍽️</div><div class="stamp">🏆</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ═══ KONTAKT ═══ -->
+<section class="contact section-padding" id="kontakt">
+<div class="container">
+<h2 class="section-title reveal">Kontakt</h2>
+<p class="section-subtitle reveal">Masz pytanie? Chcesz zaplanować wędrówkę? Napisz — odezwiemy się w&nbsp;ciągu 24h.</p>
+<div class="contact-grid">
+<form class="contact-form reveal" id="contact-form" action="https://formspree.io/f/placeholder" method="POST">
+<div class="form-group"><label for="name">Imię i nazwisko</label><input type="text" id="name" name="name" required placeholder="Jan Kowalski"></div>
+<div class="form-group"><label for="email">E-mail</label><input type="email" id="email" name="email" required placeholder="jan@example.com"></div>
+<div class="form-group"><label for="trail-select">Interesuje mnie trasa</label>
+<select id="trail-select" name="trail"><option value="">— Wybierz —</option><option value="lupkowski">Odcinek Łupkowski</option><option value="komancza">Pętla Komańczańska</option><option value="bieszczadzki">Szlak Bieszczadzki</option><option value="inna">Inna / nie wiem jeszcze</option></select></div>
+<div class="form-group"><label for="message">Wiadomość</label><textarea id="message" name="message" required placeholder="Kiedy planujesz wędrówkę? Ile osób? Pytania?"></textarea></div>
+<button type="submit" class="btn btn-primary" id="submit-btn">Wyślij zapytanie</button>
+</form>
+<div class="contact-info reveal">
+<div class="contact-info-item">
+<div class="contact-info-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg></div>
+<div><h4>E-mail</h4><p>kontakt@lekki-szlak.pl</p></div>
+</div>
+<div class="contact-info-item">
+<div class="contact-info-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div>
+<div><h4>Telefon</h4><p>+48 000 000 000</p></div>
+</div>
+<div class="contact-info-item">
+<div class="contact-info-icon"><svg viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg></div>
+<div><h4>Region</h4><p>Bieszczady &amp; Beskid Niski, Podkarpackie</p></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+<div class="container">
+<div class="footer-top">
+<a href="#" class="logo">
+<svg viewBox="0 0 36 36" width="28" height="28" fill="none"><path d="M18 4L4 28h28L18 4z" stroke="#d4a843" stroke-width="2"/><circle cx="10" cy="24" r="2" fill="#2d6a4f"/><circle cx="18" cy="12" r="2" fill="#d4a843"/><circle cx="26" cy="24" r="2" fill="#2d6a4f"/></svg>
+LEKKI SZLAK
+</a>
+<div class="footer-social">
+<a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+<a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+</div>
+</div>
+<div class="footer-bottom">
+<p>&copy; 2026 Lekki Szlak. Bieszczady &amp; Beskid Niski na lekko. Projekt <a href="https://impresjapr.pl" target="_blank">ImpresjaAI</a></p>
+</div>
+</div>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
