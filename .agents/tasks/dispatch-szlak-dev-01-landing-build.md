@@ -1,11 +1,4 @@
-## ⚡ KROK 0 — ZANIM cokolwiek zrobisz
-
-**0. Wczytaj blok systemowy (skills + SSH + protokół):**
-view_file → /home/tobroz/projects/sonic-void/.agents/protocols/dispatch-system-block.md
-
----
-
-# DISPATCH — Lekki Szlak Landing Page Build + Deploy
+# Dispatch — Lekki Szlak Landing Page Build + Deploy
 
 | Pole | Wartość |
 |------|---------|
@@ -15,6 +8,21 @@ view_file → /home/tobroz/projects/sonic-void/.agents/protocols/dispatch-system
 | **Priorytet** | 🔴 HIGH |
 | **Model** | Claude Sonnet 4.6 (Thinking) |
 | **Cel** | Zbudować premium landing page + deploy na Oracle VPS |
+
+---
+
+## ⚡ Krok 0 — zapoznaj się z projektem
+
+Zanim zaczniesz kodować, przeczytaj protokoły projektu:
+
+```
+view_file → .agents/agent.md                       # kontekst projektu, zespół, USP
+view_file → .agents/protocols/communication.md      # callsign, vitals, raportowanie
+view_file → .agents/protocols/credentials.md        # SSH, klucze, secrets
+view_file → .agents/protocols/git-workflow.md       # branch, commity, push
+```
+
+Po przeczytaniu: zapisz heartbeat i wyślij callsign — potem przystąp do pracy.
 
 ---
 
@@ -76,7 +84,7 @@ lekki-szlak/
 8. **📞 KONTAKT** — Formularz zapytania (Formspree.io), dane kontaktowe sieci, linki social media
 9. **FOOTER** — Prawa autorskie, linki, social media icons
 
-### Design — Estetyka „Mountain Luxury"
+### Design — estetyka „Mountain Luxury"
 
 | Aspekt | Wartość |
 |--------|---------|
@@ -112,7 +120,7 @@ Open Graph + Twitter Cards dla social sharing.
 
 ## 🚀 Deploy na Oracle VPS
 
-### Mapa portów VPS (AKTUALNA — nie naruszaj istniejących!)
+### Mapa portów VPS (aktualna — zachowaj istniejące serwisy)
 
 | Port | Serwis | Status |
 |------|--------|--------|
@@ -126,9 +134,9 @@ Open Graph + Twitter Cards dla social sharing.
 | 8081 | prawy-wordpress | ✅ zajęty |
 | 8082 | otwock-museum | ✅ zajęty |
 | 8083 | pressai-academy | ✅ zajęty |
-| **8084** | **lekki-szlak** | ⬜ **WOLNY — użyj tego!** |
+| **8084** | **lekki-szlak** | ⬜ **wolny — użyj tego** |
 
-### Deployment steps:
+### Deployment
 
 1. **Dockerfile** — prosty nginx:alpine serve static files
 ```dockerfile
@@ -165,18 +173,16 @@ server {
 }
 ```
 
-4. **⚠️ UWAGA — Bezpieczeństwo nginx:**
-   - DOPISZ nowy server block do **istniejącego** pliku `/etc/nginx/conf.d/default.conf`
-   - NIE nadpisuj pliku — DOPISZ na końcu (przed ostatnim blokiem redirect prawy)
-   - Po zmianie: `docker exec crimson-nginx nginx -t` → sprawdź syntax
+4. **Nginx safety** — dopisz nowy server block do **istniejącego** pliku `/etc/nginx/conf.d/default.conf`. Po zmianie:
+   - `docker exec crimson-nginx nginx -t` → sprawdź syntax
    - Dopiero po OK: `docker exec crimson-nginx nginx -s reload`
-   - Jeśli test failuje → COFNIJ zmianę natychmiast
+   - Jeśli test nie przechodzi → cofnij zmianę i zaraportuj bloker
 
-5. **DNS** — subdomena `lekki-szlak.impresjapr.pl` musi wskazywać na 147.224.162.100. Sprawdź:
+5. **DNS** — subdomena `lekki-szlak.impresjapr.pl` powinna wskazywać na 147.224.162.100. Sprawdź:
    ```bash
-   ssh -i ~/.ssh/oracle-crimson.key ubuntu@147.224.162.100 "dig lekki-szlak.impresjapr.pl +short"
+   ssh oracle-crimson "dig lekki-szlak.impresjapr.pl +short"
    ```
-   Jeśli brak → raport bloker do Supervisora. DNS konfiguruję ja (Supervisor) lub user.
+   Jeśli brak — zaraportuj bloker. DNS konfiguruje Supervisor lub user.
 
 ---
 
@@ -190,10 +196,10 @@ W katalogu `/home/tobroz/projects/sonic-void/lekki-szlak/img/` znajdują się wy
 
 Użyj ich jako placeholderów. W przyszłości zastąpimy realnymi zdjęciami z Google Photos.
 
-**Wygeneruj brakujące:**
-- Zdjęcie Schroniska Smolnik (generate_image)
-- Zdjęcie Schroniska w Komańczy (generate_image)
-- Zdjęcia szlaków/tras (generate_image)
+**Wygeneruj brakujące** (użyj generate_image):
+- Zdjęcie Schroniska Smolnik
+- Zdjęcie Schroniska w Komańczy
+- Zdjęcia szlaków/tras
 
 ---
 
@@ -213,7 +219,7 @@ Użyj ich jako placeholderów. W przyszłości zastąpimy realnymi zdjęciami z 
 
 ## 📨 Raport
 
-Po zakończeniu — raport do [Supervisor 01]:
+Po zakończeniu:
 ```
 📨 RAPORT DO [Supervisor 01]:
 [SZLAK-DEV 01] zakończył build + deploy landing page.
