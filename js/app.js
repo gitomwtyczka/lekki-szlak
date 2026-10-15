@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initMap();
   initGalleryLightbox();
   initContactForm();
+  initPartnerGate();
 });
 
 /* ── Navbar scroll effect ── */
@@ -200,4 +201,155 @@ function initContactForm() {
       setTimeout(() => { btn.textContent = origText; }, 3000);
     });
   });
+}
+
+/* ── Partner Gateway Modal (B2B Split Gate) ── */
+function initPartnerGate() {
+  const modal = document.getElementById('gate-modal');
+  if (!modal) return;
+
+  const backdrop = document.getElementById('gate-backdrop');
+  const closeBtn = document.getElementById('gate-close');
+  const travelerBtn = document.getElementById('gate-traveler-btn');
+  const navHostBtn = document.getElementById('nav-host-btn');
+  const form = document.getElementById('gate-host-form');
+  const submitBtn = document.getElementById('gate-submit-btn');
+  const successBox = document.getElementById('gate-success-box');
+  const successMsg = document.getElementById('gate-success-msg');
+  const successCloseBtn = document.getElementById('gate-success-close-btn');
+  const hostCol = document.getElementById('gate-col-host');
+
+  const STORAGE_KEY = 'ls_partner_gate_closed';
+
+  const openModal = (focusHost = false) => {
+    modal.classList.add('active');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+
+    if (focusHost && hostCol) {
+      setTimeout(() => {
+        hostCol.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        const facilityInput = document.getElementById('gate-facility');
+        if (facilityInput) facilityInput.focus();
+      }, 150);
+    }
+  };
+
+  const closeModal = (persistClose = true) => {
+    modal.classList.remove('active');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    if (persistClose) {
+      try {
+        sessionStorage.setItem(STORAGE_KEY, 'true');
+      } catch (err) {}
+    }
+  };
+
+  // Automatyczne otwarcie po 1.2s jeśli brak flagi w sessionStorage
+  try {
+    const isClosed = sessionStorage.getItem(STORAGE_KEY);
+    if (!isClosed) {
+      setTimeout(() => {
+        if (!sessionStorage.getItem(STORAGE_KEY)) {
+          openModal(false);
+        }
+      }, 1200);
+    }
+  } catch (err) {
+    setTimeout(() => openModal(false), 1200);
+  }
+
+  // Trigger z navbara "🤝 Dla Gospodarzy"
+  if (navHostBtn) {
+    navHostBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      openModal(true);
+    });
+  }
+
+  // Zamknięcia bramy
+  if (closeBtn) closeBtn.addEventListener('click', () => closeModal(true));
+  if (backdrop) backdrop.addEventListener('click', () => closeModal(true));
+  if (travelerBtn) {
+    travelerBtn.addEventListener('click', () => {
+      closeModal(true);
+      const uspSec = document.getElementById('usp');
+      if (uspSec) uspSec.scrollIntoView({ behavior: 'smooth' });
+    });
+  }
+  if (successCloseBtn) successCloseBtn.addEventListener('click', () => closeModal(true));
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('active')) {
+      closeModal(true);
+    }
+  });
+
+  // Obsługa miniformularza B2B
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const facilityInput = document.getElementById('gate-facility');
+      const phoneInput = document.getElementById('gate-phone');
+      const nameInput = document.getElementById('gate-name');
+
+      const facility = facilityInput ? facilityInput.value.trim() : '';
+      const phone = phoneInput ? phoneInput.value.trim() : '';
+      const hostName = nameInput ? nameInput.value.trim() : '';
+
+      if (!facility || !phone) return;
+
+      const origBtnText = submitBtn ? submitBtn.textContent : '';
+      if (submitBtn) {
+        submitBtn.textContent = 'Przesyłanie zgłoszenia...';
+        submitBtn.disabled = true;
+      }
+
+      const payload = {
+        facility: facility,
+        phone: phone,
+        host_name: hostName || 'Nie podano',
+        _subject: `Nowe zgłoszenie Gospodarza: ${facility} (${phone}) — Lekki Szlak B2B`,
+        submitted_at: new Date().toISOString()
+      };
+
+      try {
+        await fetch('https://formsubmit.co/ajax/tobroz@gmail.com', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+      } catch (networkErr) {
+        console.warn('Form submission network error, showing fallback success:', networkErr);
+      }
+
+      // Prezentacja stanu sukcesu
+      form.style.display = 'none';
+      if (successMsg) {
+        successMsg.innerHTML = `Dziękujemy! Twoje zgłoszenie dla obiektu <strong>${escapeHtml(facility)}</strong> zostało przyjęte. Zadzwonimy pod numer <strong>${escapeHtml(phone)}</strong> najszybciej jak to możliwe.`;
+      }
+      if (successBox) {
+        successBox.style.display = 'block';
+      }
+
+      try {
+        sessionStorage.setItem(STORAGE_KEY, 'true');
+      } catch (err) {}
+    });
+  }
+}
+
+function escapeHtml(str) {
+  return String(str).replace(/[&<>'"]/g, tag => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    "'": '&#39;',
+    '"': '&quot;'
+  }[tag] || tag));
 }

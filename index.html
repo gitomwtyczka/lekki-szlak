@@ -44,6 +44,7 @@ LEKKI SZLAK
 </a>
 <div class="nav-links" id="nav-links">
 <a href="#usp">Idea</a><a href="#mapa">Mapa</a><a href="#obiekty">Obiekty</a><a href="#trasy">Trasy</a><a href="#galeria">Galeria</a><a href="#kontakt">Kontakt</a>
+<a href="#dla-gospodarzy" class="nav-host-btn" id="nav-host-btn">🤝 Dla Gospodarzy</a>
 </div>
 <button class="nav-toggle" id="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
 </div>
@@ -255,6 +256,110 @@ LEKKI SZLAK
 </div>
 </div>
 </footer>
+
+<!-- ═══ BRAMA DWUTOROWA / MODAL PARTNERSKI B2B ═══ -->
+<div class="gate-modal" id="gate-modal" aria-hidden="true" role="dialog" aria-labelledby="gate-host-title">
+  <div class="gate-backdrop" id="gate-backdrop"></div>
+  <div class="gate-dialog">
+    <button class="gate-close" id="gate-close" aria-label="Zamknij bramę">&times;</button>
+    <div class="gate-grid">
+      
+      <!-- Tor Wędrowca (kompaktowy) -->
+      <div class="gate-col gate-col-traveler">
+        <div class="gate-badge traveler-badge">🥾 JESTEM WĘDROWCEM</div>
+        <h3>Szukasz bieszczadzkiej wolności?</h3>
+        <p class="gate-traveler-desc">Szukam spokoju, dzikich gór i wędrówki z lekkim plecakiem od schroniska do schroniska.</p>
+        <button type="button" class="btn btn-outline gate-btn-traveler" id="gate-traveler-btn">
+          Odkryj szlak i schroniska &rarr;
+        </button>
+      </div>
+
+      <!-- Tor Gospodarza (główny atraktor B2B — A + B) -->
+      <div class="gate-col gate-col-host" id="gate-col-host">
+        <div class="gate-badge host-badge">🏡 PROWADZISZ SCHRONISKO LUB AGROTURYSTYKĘ?</div>
+        <h2 id="gate-host-title" class="gate-host-title">Zapełnij wolne łóżka w środku tygodnia — dajemy Ci zorganizowany ruch gości</h2>
+        <p class="gate-host-sub">Dołącz do sieci Lekki Szlak w Bieszczadach i Beskidzie Niskim. Wprowadzamy sprawdzonych wędrowców prosto pod Twoje drzwi:</p>
+        
+        <div class="gate-benefits">
+          <div class="benefit-card">
+            <span class="benefit-icon">📈</span>
+            <div class="benefit-content">
+              <strong>Obłożenie poniedziałek–czwartek</strong>
+              <p>Wędrowcy idą etapami przez cały tydzień, zapełniając puste pokoje poza weekendami.</p>
+            </div>
+          </div>
+          <div class="benefit-card">
+            <span class="benefit-icon">🍲</span>
+            <div class="benefit-content">
+              <strong>Potrójny zysk z Twojej kuchni</strong>
+              <p>Każdy gość zamawia u Ciebie śniadanie, lunch-box na szlak i ciepłą obiadokolację.</p>
+            </div>
+          </div>
+          <div class="benefit-card">
+            <span class="benefit-icon">💰</span>
+            <div class="benefit-content">
+              <strong>0% prowizji i 0 zł opłat stałych</strong>
+              <p>Koniec z oddawaniem 15–20% marży dla Bookingu. Cały zysk zostaje u Ciebie.</p>
+            </div>
+          </div>
+          <div class="benefit-card">
+            <span class="benefit-icon">🤫</span>
+            <div class="benefit-content">
+              <strong>Spokojni goście (Gwarancja Ciszy)</strong>
+              <p>Kulturalni wędrowcy szanujący górski klimat. Żadnych głośnych imprez i off-roadu.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Szybki miniformularz B2B -->
+        <form class="gate-host-form" id="gate-host-form" action="https://formsubmit.co/ajax/tobroz@gmail.com" method="POST">
+          <input type="hidden" name="_subject" value="Nowe zgłoszenie Gospodarza — Lekki Szlak B2B">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_captcha" value="false">
+          
+          <div class="gate-form-row">
+            <div class="gate-form-group">
+              <label for="gate-facility">Nazwa obiektu i miejscowość <span class="required">*</span></label>
+              <input type="text" id="gate-facility" name="facility" required placeholder="np. Chata pod Brzozami, Cisna">
+            </div>
+          </div>
+          
+          <div class="gate-form-row gate-form-cols">
+            <div class="gate-form-group">
+              <label for="gate-phone">Numer telefonu do kontaktu <span class="required">*</span></label>
+              <input type="tel" id="gate-phone" name="phone" required placeholder="np. +48 600 000 000">
+            </div>
+            <div class="gate-form-group">
+              <label for="gate-name">Twoje imię</label>
+              <input type="text" id="gate-name" name="host_name" placeholder="np. Janek">
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary gate-submit-btn" id="gate-submit-btn">
+            Oddzwońcie do mnie — chcę poznać szczegóły &rarr;
+          </button>
+          <p class="gate-micro-copy">📞 Nie musisz pisać długich maili. Zostaw numer — oddzwonimy i opowiemy wszystko w 5 minut.</p>
+        </form>
+
+        <!-- Widok sukcesu po wysłaniu -->
+        <div class="gate-success-box" id="gate-success-box" style="display:none;">
+          <div class="success-icon-badge">✨</div>
+          <h3>Dziękujemy! Zgłoszenie przyjęte</h3>
+          <p id="gate-success-msg">Twoje zgłoszenie zostało przyjęte. Zadzwonimy pod podany numer najszybciej jak to możliwe.</p>
+          <div class="success-direct">
+            <span>Pilny kontakt bezpośredni:</span>
+            <a href="mailto:tobroz@gmail.com" class="direct-link">✉️ tobroz@gmail.com</a>
+          </div>
+          <button type="button" class="btn btn-outline gate-success-close-btn" id="gate-success-close-btn">
+            Przejdź do strony głównej &rarr;
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="js/app.js"></script>
